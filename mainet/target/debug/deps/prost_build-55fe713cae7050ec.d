@@ -1,0 +1,16 @@
+/home/peterbruegel/GitHub/Mainet/mainet/target/debug/deps/prost_build-55fe713cae7050ec.rmeta: /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/lib.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ast.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/code_generator.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/extern_paths.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ident.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/message_graph.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/path.rs
+
+/home/peterbruegel/GitHub/Mainet/mainet/target/debug/deps/libprost_build-55fe713cae7050ec.rlib: /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/lib.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ast.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/code_generator.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/extern_paths.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ident.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/message_graph.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/path.rs
+
+/home/peterbruegel/GitHub/Mainet/mainet/target/debug/deps/prost_build-55fe713cae7050ec.d: /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/lib.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ast.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/code_generator.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/extern_paths.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ident.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/message_graph.rs /home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/path.rs
+
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/lib.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ast.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/code_generator.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/extern_paths.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/ident.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/message_graph.rs:
+/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/src/path.rs:
+
+# env-dep:PROTOC=/usr/bin/protoc
+# env-dep:PROTOC_INCLUDE=/home/peterbruegel/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-build-0.10.4/third-party/include
