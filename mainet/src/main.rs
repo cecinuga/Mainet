@@ -20,101 +20,13 @@ use std::time::Duration;
 use tokio::io::{self, AsyncBufReadExt, Lines, BufReader, Stdin};
 use tokio::{self, select};
 use once_cell::sync::Lazy;
+use mainet::{set_addr, handle_input_command, behaviour::{MyBehaviour, MyBehaviourEvent} };
 
 static KEYS: Lazy<identity::Keypair> = Lazy::new(identity::Keypair::generate_ed25519);
 static PEER_ID: Lazy<PeerId> = Lazy::new(|| PeerId::from(KEYS.public()));
 static TOPIC: Lazy<Topic> = Lazy::new(|| Topic::new("mainet"));
 
-#[derive(NetworkBehaviour)]
-#[behaviour(out_event="MyBehaviourEvent")]
-struct MyBehaviour{
-    gossipsub: Gossipsub,
-    kademlia: Kademlia<MemoryStore>,
-    mdns: Mdns,
-}
 
-#[allow(clippy::large_enum_variant)]
-enum MyBehaviourEvent{
-    Gossipsub(GossipsubEvent),
-    Kademlia(KademliaEvent),
-    Mdns(MdnsEvent),
-}
-
-impl From<GossipsubEvent> for MyBehaviourEvent{
-    fn from(v: GossipsubEvent) -> Self {
-        Self::Gossipsub(v)
-    }
-}
-
-impl From<KademliaEvent> for MyBehaviourEvent{
-    fn from(v: KademliaEvent) -> Self {
-        Self::Kademlia(v)
-    }
-}
-
-impl From<MdnsEvent> for MyBehaviourEvent{
-    fn from(v: MdnsEvent) -> Self{
-        Self::Mdns(v)
-    }
-}
-
-async fn set_addr(swarm: &mut Swarm<MyBehaviour>,stdin: &mut Lines<BufReader<Stdin>>) -> String {
-    let mut valid_addr = false;
-    let mut _address_ : String = String::from("");
-
-    while !valid_addr {
-        println!("Enter an address (blank to get a new one)");
-        let address = stdin
-            .next_line()
-            .await
-            .expect("Valid address").unwrap()
-            .to_owned();
-
-        if address == String::new() {
-            break;
-        }
-        if let Ok(addr) = address.parse::<Multiaddr>() {
-            match swarm.dial(addr.clone()){
-                Ok(_address_) => {
-                    valid_addr = true;
-                    println!("Dialed {:?}", address);
-                }
-                Err(err) => println!("Dialed error{}",err)
-            }
-        };
-        _address_ = address;
-    };
-    _address_
-}
-
-async fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Lines<BufReader<Stdin>>,name: &mut String, line: &String){
-    let mut args = line.split(' ');
-
-    match args.next(){
-        Some("set_name:")=>{
-            let mut name_ = args.collect::<Vec<&str>>().join(" ");
-
-            //swarm.behaviour_mut().kademlia.stop_providing(&Key::new(&name));
-            swarm.behaviour_mut().kademlia.get_providers(Key::new(&name_));
-            
-            *name = name_;
-        }
-        Some("send:")=>{
-            let body = args.collect::<Vec<&str>>().join(" ");
-            let message = format!("{}: {}", name, body);
-            if let Err(e) = 
-                swarm
-                    .behaviour_mut()
-                    .gossipsub.publish(TOPIC.clone(), message.as_bytes()){
-                        println!("Publish error: {}", e);
-                    } 
-        },/*
-        Some("clear")=>{
-            print!("\x1B[2J\x1B[1;1H");
-        }*/
-        _=>{}
-    }
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{
@@ -165,7 +77,7 @@ async fn main() -> Result<(), Box<dyn Error>>{
  
     loop {
         select! {
-            line = stdin.next_line() => handle_input_command(&mut swarm, &mut stdin, &mut name, &line.unwrap().expect("Message not sended.")).await,
+            line = stdin.next_line() => handle_input_command(&mut swarm, &mut stdin, &mut name, &line.unwrap().expect("Message not sended."), TOPIC.clone()).await,
             event = swarm.select_next_some() => match event {
                 SwarmEvent::NewListenAddr { address, .. } => {
                     println!("{}", address)
