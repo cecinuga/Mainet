@@ -67,8 +67,8 @@ async fn main() -> Result<(), Box<dyn Error>>{
     let addr = set_addr(&mut swarm, &mut stdin).await.parse::<Multiaddr>().unwrap();
 
     print!("\x1B[2J\x1B[1;1H");
+    println!("type 'help'");
     println!("PeerID: {}", PEER_ID.clone());
-
  
     loop {
         select! {

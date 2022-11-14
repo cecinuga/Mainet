@@ -9,7 +9,10 @@ Using `Gossipsub` for sending messages.
 Using `Gossipsub Topic` for subscribing to groups.
 
 ## Commands
+`help` clear and print the commands.
+
 `send: <message>` send a message.
 
 `set_name: <name>` set the name using `kademlia.start_providing(name)`.
 
+`ls peers` list the peers.

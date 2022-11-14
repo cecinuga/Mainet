@@ -36,7 +36,7 @@ pub async  fn set_addr(swarm: &mut Swarm<MyBehaviour>,stdin: &mut Lines<BufReade
     _address_
 }
 
-pub async  fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Lines<BufReader<Stdin>>,name: &mut String, line: &String, topic: Topic){
+pub async fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Lines<BufReader<Stdin>>,name: &mut String, line: &String, topic: Topic){
     let mut args = line.split(' ');
 
     match args.next(){
@@ -57,11 +57,28 @@ pub async  fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut L
                     .gossipsub.publish(topic, message.as_bytes()){
                         println!("Publish error: {}", e);
                     } 
-        },/*
+        },
+        Some("ls") => {
+            match args.next() {
+                Some("peers") => {
+                    for (i, (peer, _)) in swarm.behaviour_mut().gossipsub.all_peers().enumerate(){
+                        println!("[{}] {:?}", i+1, peer)
+                    }
+                },
+                _=>{}
+            }
+        }
+        Some("help") => {
+            println!("Commands...");
+            println!("help");
+            println!("set_name: <name>");
+            println!("send: <message>");
+            println!("ls peers");
+        }
         Some("clear")=>{
-            print!("\x1B[2J\x1B[1;1H");
-        }*/
-        _=>{}
+            println!("\x1B[2J\x1B[1;1H");
+        }
+        _=>{println!("[#]No command found.")}
     }
 }
 
