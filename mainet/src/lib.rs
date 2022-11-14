@@ -1,3 +1,5 @@
+use std::hash::Hash;
+
 use libp2p::{ Swarm, Multiaddr, 
     kad::record::{ Key },
     gossipsub::IdentTopic as Topic,
@@ -58,13 +60,37 @@ pub async fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Li
                         println!("Publish error: {}", e);
                     } 
         },
+        Some("sendg:")=>{
+            let new_topic = Topic::new(args.next().expect("Topic not setted."));
+            let body = args.collect::<Vec<&str>>().join(" ");
+            let message = format!("{}: {}", name, body);
+            if let Err(e) = 
+                swarm
+                    .behaviour_mut()
+                    .gossipsub.publish(new_topic, message.as_bytes()){
+                        println!("Publish error: {}", e);
+                    } 
+        },
+        Some("sub:")=>{
+            let topic = Topic::new(args.next().expect("Topic not subscribed"));
+            swarm.behaviour_mut().gossipsub.subscribe(&topic).unwrap();
+        }
+        Some("unsub:")=>{
+            let topic = Topic::new(args.next().expect("Topic not unsubscribed"));
+            swarm.behaviour_mut().gossipsub.unsubscribe(&topic).unwrap();
+        }
         Some("ls") => {
             match args.next() {
-                Some("peers") => {
+                Some("ps") => {
                     for (i, (peer, _)) in swarm.behaviour_mut().gossipsub.all_peers().enumerate(){
                         println!("[{}] {:?}", i+1, peer)
                     }
                 },
+                Some("ts") => {
+                    for (i, topic) in swarm.behaviour_mut().gossipsub.topics().enumerate(){
+                        println!("[{}] {:?}",i+1, topic);
+                    }
+                }
                 _=>{}
             }
         }
@@ -73,6 +99,9 @@ pub async fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Li
             println!("help");
             println!("set_name: <name>");
             println!("send: <message>");
+            println!("sendg: <group> <message>");
+            println!("sub: <group>");
+            println!("unsub: <group>");
             println!("ls peers");
         }
         Some("clear")=>{

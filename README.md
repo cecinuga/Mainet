@@ -13,6 +13,15 @@ Using `Gossipsub Topic` for subscribing to groups.
 
 `send: <message>` send a message.
 
+`sendg: <group> <message>` send a message in a group.
+
 `set_name: <name>` set the name using `kademlia.start_providing(name)`.
 
-`ls peers` list the peers.
+`sub: <group>` subscribe to a group.
+
+`unsub: <group>` unsubscribe to a group.
+
+`ls ps` list the peers.
+
+`ls ts` list the topics.
+
