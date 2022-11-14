@@ -2,7 +2,7 @@
 A p2p chat written in rust using libp2p.
 
 ## How it works?
-Using `Kademlia` for storing the username.
+Using `Kademlia` for storing the username.\n
 Using `Gossipsub` for sending messages.
 Using `Gossipsub Topic` for subscribing to groups.
 
