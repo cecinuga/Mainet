@@ -1,23 +1,20 @@
 use libp2p::gossipsub::{
-    Gossipsub, GossipsubEvent, IdentTopic as Topic, MessageAuthenticity, ValidationMode,
+    GossipsubEvent, IdentTopic as Topic, MessageAuthenticity, ValidationMode,
 };
 use libp2p::kad::record::store::MemoryStore;
 use libp2p::kad::{
-    record::Key, AddProviderOk, Kademlia, KademliaEvent, PeerRecord, PutRecordOk, QueryResult,
-    Quorum, Record,
+    record::Key, Kademlia, KademliaEvent, QueryResult,
 };
 use libp2p::mdns::{Mdns, MdnsConfig, MdnsEvent};
 use libp2p::swarm::SwarmBuilder;
 use libp2p::tcp::{GenTcpConfig, TokioTcpTransport};
 use libp2p::{
-    core::upgrade, futures::StreamExt, gossipsub, identity, mplex, noise, swarm::SwarmEvent,
-    NetworkBehaviour, PeerId,
-    Swarm,
+    core::upgrade, futures::StreamExt, gossipsub, identity, mplex, noise, swarm::SwarmEvent, PeerId,
 };
-use libp2p::{Multiaddr, Transport, multiaddr};
+use libp2p::{Multiaddr, Transport, };
 use std::error::Error;
 use std::time::Duration;
-use tokio::io::{self, AsyncBufReadExt, Lines, BufReader, Stdin};
+use tokio::io::{self, AsyncBufReadExt, };
 use tokio::{self, select};
 use once_cell::sync::Lazy;
 use mainet::{set_addr, handle_input_command, behaviour::{MyBehaviour, MyBehaviourEvent} };
@@ -25,8 +22,6 @@ use mainet::{set_addr, handle_input_command, behaviour::{MyBehaviour, MyBehaviou
 static KEYS: Lazy<identity::Keypair> = Lazy::new(identity::Keypair::generate_ed25519);
 static PEER_ID: Lazy<PeerId> = Lazy::new(|| PeerId::from(KEYS.public()));
 static TOPIC: Lazy<Topic> = Lazy::new(|| Topic::new("mainet"));
-
-
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{

@@ -5,7 +5,6 @@ use libp2p::{
     mdns::{ Mdns, MdnsEvent },
 };
 
-
 #[derive(NetworkBehaviour)]
 #[behaviour(out_event="MyBehaviourEvent")]
 pub struct MyBehaviour{
