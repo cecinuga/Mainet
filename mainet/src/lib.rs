@@ -97,12 +97,13 @@ pub async fn handle_input_command(swarm: &mut Swarm<MyBehaviour>, stdin: &mut Li
         Some("help") => {
             println!("Commands...");
             println!("help");
+            println!("ls ps");
+            println!("ls ts");
             println!("set_name: <name>");
             println!("send: <message>");
             println!("sendg: <group> <message>");
             println!("sub: <group>");
             println!("unsub: <group>");
-            println!("ls peers");
         }
         Some("clear")=>{
             println!("\x1B[2J\x1B[1;1H");
